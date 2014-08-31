@@ -184,3 +184,4 @@ FakesAssemblies/
 
 #Bower third parties
 trailtastic.api/Content/3rd
+/trailtastic.api/.bin
