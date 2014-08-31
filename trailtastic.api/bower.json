@@ -10,7 +10,8 @@
     "require-handlebars-plugin": "0.8.0",
     "marionette": "~1.6.2",
     "backbone.localStorage": "~1.1.7",
-    "semantic": "0.15.4"
+    "semantic": "0.15.4",
+    "requirejs-plugins": "~1.0.2"
   },
   "resolutions": {
     "jquery": "~2.1.0",
