@@ -30,7 +30,7 @@
 })
 
 //http://blog.millermedeiros.com/requirejs-2-0-delayed-module-evaluation-and-google-maps/
-define('gmaps', ['async!https://maps.google.com/maps/api/js?key=AIzaSyD8iN9aVd62aN4-YnX0hhxpEjXfNR2-1B4'],
+define('gmaps', ['async!https://maps.google.com/maps/api/js?key=AIzaSyD8iN9aVd62aN4-YnX0hhxpEjXfNR2-1B4&libraries=drawing'],
     function () {
         return window.google.maps;
 });

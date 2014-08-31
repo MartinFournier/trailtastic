@@ -1,23 +1,28 @@
 ﻿define([
-    'underscore',
     'backbone',
     'localstorage',
-    'gmaps'
-], function (_, Backbone, LocalStorage, gmaps) {
+    'gmaps',
+    'geo',
+    'debug'
+], function (Backbone, LocalStorage, gmaps, geo, debug) {
     var MapModel = Backbone.Model.extend({
-        defaults: {
-            id: 1,
-            canvas: 'map-canvas'
-        },
-        options: {
-            center: new google.maps.LatLng(-34.397, 150.644),
-            zoom: 8
-        },
         localStorage: new Backbone.LocalStorage("Map"),
 
-        initialize: function () {
-            this.fetch();
-            this.save();
+        defaults: {
+            id: 1,
+            canvas: 'map-canvas',
+            lat: -34.397,
+            lng: 150.644,
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        },
+
+        getOptions: function() {
+            return {
+                center: new google.maps.LatLng(this.get('lat'), this.get('lng')),
+                zoom: this.get('zoom'),
+                mapTypeId: this.get('mapTypeId')
+            }
         },
 
         getCanvasId: function () {
@@ -28,37 +33,46 @@
             return document.getElementById(this.get('canvas'));
         },
 
-        createMap: function () {
-            this.map = new google.maps.Map(this.getCanvas(), this.options);
-            this.initializePosition(this.map);
+        initialize: function () {
+            this.fetch();
+            this.save();
         },
 
-        initializePosition: function (map) {
-            //from: http://www.rockylhc.com/blog/2012/05/17/using-gmap-requirejs-backbone
-            if (navigator && navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        var pos = new google.maps.LatLng(
-                            position.coords.latitude,
-                            position.coords.longitude
-                        );
-                        map.setCenter(pos);
-                    }, function (e) {
-                        switch (e) {
-                            case 1:
-                                console.log('The user denied the request for location information.');
-                                break;
-                            case 2:
-                                console.log('Your location information is unavailable.');
-                                break;
-                            case 3:
-                                console.log('The request to get your location timed out.');
-                                break;
-                            default:
-                                console.log('default');
-                        }
-                    });
-            }
+        setCoords: function(lat, lng, zoom) {
+            this.set('zoom', zoom);
+            this.set('lat', lat);
+            this.set('lng', lng);
+            this.save();
+        },
+
+        createMap: function () {
+            var model = this;
+            var map = new google.maps.Map(this.getCanvas(), this.getOptions());
+            this.map = map;
+            
+            this.bindMapEvents(map, this)
+            debug.things(map);
+        },
+
+        locate: function () {
+            var map = this.map;
+            geo.getBrowserLocation(function() {
+                var pos = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+                map.panTo(pos);
+            });
+        },
+
+        bindMapEvents: function(map, model) {
+            google.maps.event.addListener(map, "bounds_changed", function () {
+                var zoom = map.getZoom();
+                var center = map.getBounds().getCenter();
+                var lat = center.lat();
+                var lng = center.lng();
+                model.setCoords(lat, lng, zoom);
+            });
         }
     });
 

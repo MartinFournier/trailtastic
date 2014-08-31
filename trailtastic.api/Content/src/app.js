@@ -9,15 +9,17 @@
     var app = new Marionette.Application();
     window.app = app;
 
-    app.map = new MapModel();
+    app.mapModel = new MapModel();
     app.mapView = new MapView({
         el: '#main-content',
-        model: app.map
+        model: app.mapModel
     });
 
     app.addInitializer(function () {
-        app.map.initialize();
+        app.mapModel.initialize();
         app.mapView.render();
+
+        $("#menu-locate").click(function () { app.mapModel.locate();});
     });
 
     return app;

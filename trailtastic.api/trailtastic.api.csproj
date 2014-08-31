@@ -131,8 +131,10 @@
   <ItemGroup>
     <Content Include="Content\css\main.css" />
     <Content Include="Content\src\app.js" />
+    <Content Include="Content\src\debug.js" />
     <Content Include="Content\src\entities\mapModel.js" />
     <Content Include="Content\src\core.js" />
+    <Content Include="Content\src\geo.js" />
     <Content Include="Content\src\views\map.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
