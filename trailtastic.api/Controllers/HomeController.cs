@@ -17,7 +17,6 @@ namespace trailtastic.api.Controllers
 
         public ActionResult Map()
         {
-            ViewBag.ApiKey = System.Configuration.ConfigurationManager.AppSettings["GoogleAPI.BrowserKey"];
             return View();
         }
     }

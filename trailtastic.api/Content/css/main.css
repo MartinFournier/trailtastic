@@ -1,0 +1,27 @@
+﻿#main-content {
+    margin-top: 0px;
+    padding-top: 43px;
+}
+
+#map-canvas {
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+}
+
+.ui.input .character-name {
+    border: none;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+}
+
+#container-characters .item {
+    min-height: initial;
+}
+
+.ui.button.button-status {
+    margin-top: 20px;
+}
