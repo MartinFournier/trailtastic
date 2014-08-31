@@ -131,7 +131,9 @@
   <ItemGroup>
     <Content Include="Content\css\main.css" />
     <Content Include="Content\src\app.js" />
-    <Content Include="Content\src\main.js" />
+    <Content Include="Content\src\entities\mapModel.js" />
+    <Content Include="Content\src\core.js" />
+    <Content Include="Content\src\views\map.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -147,10 +149,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\templates\map.hbs" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>

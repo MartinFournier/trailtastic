@@ -3,21 +3,21 @@
     'marionette',
     'backbone',
     'semantic',
-    'gmaps'
-], function ($, Marionette, Backbone, Semantic, gmaps) {
+    'views/map',
+    'entities/mapModel'
+], function ($, Marionette, Backbone, Semantic, MapView, MapModel) {
     var app = new Marionette.Application();
     window.app = app;
 
-    var mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
-        zoom: 8
-    };
+    app.map = new MapModel();
+    app.mapView = new MapView({
+        el: '#main-content',
+        model: app.map
+    });
 
     app.addInitializer(function () {
-        var height = $(window).height() - 43;
-        $("#map-canvas").css('height', height + 'px');
-        
-        app.map = new gmaps.Map(document.getElementById("map-canvas"), mapOptions);
+        app.map.initialize();
+        app.mapView.render();
     });
 
     return app;
